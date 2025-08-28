@@ -7,7 +7,10 @@ using MinimalApi.Dominio.Servicos;
 using Microsoft.AspNetCore.Mvc;
 using MinimalApi.Dominio.ModelViews;
 
+#region Builder
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 builder.Services.AddScoped<IAdministradorServico, AdministradorServico>();
 
@@ -22,11 +25,14 @@ builder.Services.AddDbContext<DbContexto>(options =>
             );
 });
 var app = builder.Build();
+#endregion
 
-
+#region Home
 app.MapGet("/", () => Results.Json(new Home()));
+#endregion
 
-app.MapPost("/login", ([FromBody] LoginDTO loginDTO, IAdministradorServico administradorServico) =>
+# region Administradores
+app.MapPost("/administradores/login", ([FromBody] LoginDTO loginDTO, IAdministradorServico administradorServico) =>
 {
     if (administradorServico.Login(loginDTO) != null)
 
@@ -34,7 +40,15 @@ app.MapPost("/login", ([FromBody] LoginDTO loginDTO, IAdministradorServico admin
     else return Results.Unauthorized();
 
 });
+#endregion
 
+#region Veiculos
+
+#endregion
+
+#region App
 app.UseSwagger();
 app.UseSwaggerUI();
 app.Run();
+
+#endregion
