@@ -45,7 +45,7 @@ app.MapPost("/administradores/login", ([FromBody] LoginDTO loginDTO, IAdministra
 }).WithTags("Administradores");
 
 
-app.MapPost("/administradores", ([FromQuery] int? pagina, IAdministradorServico administradorServico) =>
+app.MapGet("/administradores", ([FromQuery] int? pagina, IAdministradorServico administradorServico) =>
 {
     return Results.Ok(administradorServico.Todos(pagina));
 
@@ -61,7 +61,7 @@ app.MapGet("/administradores/{id}", ([FromRoute] int id, IAdministradorServico a
 
     return Results.Ok(administrador);
 
-}).WithTags("/administradores");
+}).WithTags("Administradores");
 
 app.MapPost("/administradores", ([FromBody] AdministradorDTO administradorDTO, IAdministradorServico administradorServico) =>
 {
@@ -90,7 +90,7 @@ app.MapPost("/administradores", ([FromBody] AdministradorDTO administradorDTO, I
     };
     administradorServico.Incluir(veiculo);
 
-    return Results.Created($"/veiculo/{veiculo.Id}", veiculo);
+    return Results.Created($"/administrador/{veiculo.Id}", veiculo);
 
 }).WithTags("Administradores");
 #endregion
