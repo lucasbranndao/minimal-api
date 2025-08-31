@@ -1,0 +1,20 @@
+using MinimalApi.Dominio.Entidades;
+
+namespace Teste.Requests;
+
+[TestClass]
+public class AdministradorRequestTeste
+{
+    [TestMethod]
+    public void TestarGetSetProriedades()
+    {
+        // Arrange
+        var adm = new Administrador();
+
+        // Action
+
+
+        //Assert
+
+    }
+}
