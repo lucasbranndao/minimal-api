@@ -3,18 +3,51 @@ using MinimalApi.Dominio.Entidades;
 namespace Teste.Requests;
 
 [TestClass]
+
 public class AdministradorRequestTeste
 {
-    [TestMethod]
-    public void TestarGetSetProriedades()
+    [ClassInitialize]
+    public static void ClassInit(TestContext testContext)
     {
+        Setup.ClassInit(testContext);
+    }
+
+
+    [ClassCleanup]
+
+
+    [TestMethod]
+    public async task TestarGetSetPropriedades()
+    {
+
         // Arrange
-        var adm = new Administrador();
+        var loginDTO = new LoginDTO
+        {
+            Email = "adm@teste.com",
+            senha = "123456"
+        };
+
+        var content = new StringContent(JsonSerializer.Serialize(logingDTO), Encoding.UTF8, "Application/json");
+
 
         // Action
+        var response = await Setup.client.PostAsync("/administradores/login", content);
 
 
         //Assert
 
+        Assert.AreEqual(HttpStatusCode.OK, responde.StatusCode);
+        var admLogado = JsonSerializer.Deserialize<AdministradorLogado>(result, new JsonSerializerOptions
+        {
+
+            PropertynameCaseInsensitive = true
+        });
+
+        Assert.IsNotNull(admLogado?.Email ?? "");
+        Assert.IsNotNull(admLogado.Perfil);
+        Assert.IsNotNull(admLogado?.Token ?? "");
     }
+
 }
+
+
